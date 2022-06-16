@@ -59,6 +59,20 @@ package("nazaraengine")
         return package:config("plugin-assimp")
     end
 
+    on_install(function (package)
+		import("package.tools.xmake").install(package)
+	end)
+
+	on_test(function (package)
+		assert(package:check_cxxsnippets({test = [[
+			void test() {
+				Nz::Bitset<> bitset;
+				bitset.UnboundedSet(42);
+				bitset.Reverse();
+			}
+		]]}, {configs = {languages = "c++17"}, includes = "Nazara/Utils/Bitset.hpp"}))
+	end)
+
     on_load("windows", "linux", "macosx", "mingw", function (package)
         local nazaradir = "C:/Users/maxim/Repository/NazaraEngine"
         if not os.isdir(nazaradir) then 
