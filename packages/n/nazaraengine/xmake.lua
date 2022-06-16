@@ -71,77 +71,77 @@ package("nazaraengine")
 		]]}, {configs = {languages = "c++17"}, includes = {"Nazara/Audio/Audio.hpp", "Nazara/Network/Network.hpp", "Nazara/Physics2D/Physics2D.hpp", "Nazara/Shader/Shader.hpp", "Nazara/Utility/Utility.hpp"}}))
 	end)
 
-    on_load("windows", "linux", "macosx", "mingw", function (package)
-        local nazaradir = "C:/Users/maxim/Repository/NazaraEngine"
-        if not os.isdir(nazaradir) then 
-            raise("missing NAZARA_ENGINE_PATH")
-        end
-        package:set("installdir", nazaradir)
-    end)
+    --on_load("windows", "linux", "macosx", "mingw", function (package)
+    --    local nazaradir = "C:/Users/maxim/Repository/NazaraEngine"
+    --    if not os.isdir(nazaradir) then 
+    --        raise("missing NAZARA_ENGINE_PATH")
+    --    end
+    --    package:set("installdir", nazaradir)
+    --end)
 
-    on_fetch(function (package)
-        local defines = {}
-        local includedirs = package:installdir("include")
-        local links = {}
-        local libprefix = package:debug() and "debug" or "releasedbg"
-        local linkdirs = package:installdir("bin/" .. package:plat() .. "_" .. package:arch() .. "_" .. libprefix)
-        local syslinks = {}
-
-        local prefix = "Nazara"
-        local suffix = package:config("shared") and "" or "-s"
-
-        if package:debug() then
-            suffix = suffix .. "-d"
-        end
-
-        if not package:config("shared") then
-            table.insert(defines, "NAZARA_STATIC")
-        end
-
-        if has_audio(package) then
-            table.insert(links, prefix .. "Audio" .. suffix)
-        end
-
-        if has_network(package) then
-            table.insert(links, prefix .. "Network" .. suffix)
-        end
-
-        if has_physics2d(package) then
-            table.insert(links, prefix .. "Physics2D" .. suffix)
-        end
-
-        if has_physics3d(package) then
-            table.insert(links, prefix .. "Physics3D" .. suffix)
-        end
-
-        if has_graphics(package) then
-            table.insert(links, prefix .. "Graphics" .. suffix)
-        end
-
-        if has_renderer(package) then
-            table.insert(links, prefix .. "Renderer" .. suffix)
-            if package:is_plat("windows", "mingw") then
-                table.insert(syslinks, "gdi32")
-                table.insert(syslinks, "user32")
-                table.insert(syslinks, "advapi32")
-            end
-        end
-
-        if has_platform(package) then
-            table.insert(links, prefix .. "Platform" .. suffix)
-        end
-
-        if has_utility(package) then
-            table.insert(links, prefix .. "Utility" .. suffix)
-        end
-
-        table.insert(links, prefix .. "Core" .. suffix)
-
-        return {
-            defines = defines,
-            includedirs = includedirs,
-            links = links,
-            linkdirs = linkdirs,
-            syslinks = syslinks
-        }
-    end)
+    --on_fetch(function (package)
+    --    local defines = {}
+    --    local includedirs = package:installdir("include")
+    --    local links = {}
+    --    local libprefix = package:debug() and "debug" or "releasedbg"
+    --    local linkdirs = package:installdir("bin/" .. package:plat() .. "_" .. package:arch() .. "_" .. libprefix)
+    --    local syslinks = {}
+--
+    --    local prefix = "Nazara"
+    --    local suffix = package:config("shared") and "" or "-s"
+--
+    --    if package:debug() then
+    --        suffix = suffix .. "-d"
+    --    end
+--
+    --    if not package:config("shared") then
+    --        table.insert(defines, "NAZARA_STATIC")
+    --    end
+--
+    --    if has_audio(package) then
+    --        table.insert(links, prefix .. "Audio" .. suffix)
+    --    end
+--
+    --    if has_network(package) then
+    --        table.insert(links, prefix .. "Network" .. suffix)
+    --    end
+--
+    --    if has_physics2d(package) then
+    --        table.insert(links, prefix .. "Physics2D" .. suffix)
+    --    end
+--
+    --    if has_physics3d(package) then
+    --        table.insert(links, prefix .. "Physics3D" .. suffix)
+    --    end
+--
+    --    if has_graphics(package) then
+    --        table.insert(links, prefix .. "Graphics" .. suffix)
+    --    end
+--
+    --    if has_renderer(package) then
+    --        table.insert(links, prefix .. "Renderer" .. suffix)
+    --        if package:is_plat("windows", "mingw") then
+    --            table.insert(syslinks, "gdi32")
+    --            table.insert(syslinks, "user32")
+    --            table.insert(syslinks, "advapi32")
+    --        end
+    --    end
+--
+    --    if has_platform(package) then
+    --        table.insert(links, prefix .. "Platform" .. suffix)
+    --    end
+--
+    --    if has_utility(package) then
+    --        table.insert(links, prefix .. "Utility" .. suffix)
+    --    end
+--
+    --    table.insert(links, prefix .. "Core" .. suffix)
+--
+    --    return {
+    --        defines = defines,
+    --        includedirs = includedirs,
+    --        links = links,
+    --        linkdirs = linkdirs,
+    --        syslinks = syslinks
+    --    }
+    --end)
