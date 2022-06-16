@@ -66,11 +66,9 @@ package("nazaraengine")
 	on_test(function (package)
 		assert(package:check_cxxsnippets({test = [[
 			void test() {
-				Nz::Bitset<> bitset;
-				bitset.UnboundedSet(42);
-				bitset.Reverse();
+				Nz::Modules<Nz::Audio, Nz::Network, Nz::Physics2D, Nz::Shader, Nz::Utility> nazaza;
 			}
-		]]}, {configs = {languages = "c++17"}, includes = "Nazara/Utils/Bitset.hpp"}))
+		]]}, {configs = {languages = "c++17"}, includes = {"Nazara/Audio/Audio.hpp", "Nazara/Network/Network.hpp", "Nazara/Physics2D/Physics2D.hpp", "Nazara/Shader/Shader.hpp", "Nazara/Utility/Utility.hpp"}}))
 	end)
 
     on_load("windows", "linux", "macosx", "mingw", function (package)
